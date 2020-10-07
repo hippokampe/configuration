@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"holberton/configuration"
+	"github.com/hippokampe/configuration"
 	"log"
 )
 
