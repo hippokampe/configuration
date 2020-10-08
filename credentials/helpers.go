@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"os"
 )
 
 func (c *Credentials) Set(cred Credentials) {
@@ -24,4 +25,8 @@ func (c *Credentials) Save() error {
 	}
 
 	return ioutil.WriteFile(c.CredentialsFile, file, 0644)
+}
+
+func (c *Credentials) Remove() {
+	_ = os.Remove(c.CredentialsFile)
 }
