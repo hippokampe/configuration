@@ -61,6 +61,6 @@ func (c *Configuration) SetLogged() bool {
 		return c.InternalStatus.Logged
 	}
 
-	c.InternalStatus.Logged = len(credentials.ID) != 4
+	c.InternalStatus.Logged = len(credentials.ID) == 4
 	return c.InternalStatus.Logged
 }
