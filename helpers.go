@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os/user"
 	"strconv"
+	"strings"
 )
 
 func (c *Configuration) GetPathBrowser(browser string) (string, error) {
@@ -45,4 +46,21 @@ func (c *Configuration) SetUsername(username string, allowRoot bool) (string, er
 	c.Owner.Username = owner.Username
 	c.Owner.Home = owner.HomeDir
 	return c.Owner.Home, nil
+}
+
+func (c *Configuration) SetBrowser(browserName string) {
+	browserName = strings.ToLower(browserName)
+	c.BrowserSelected = browserName
+}
+
+func (c *Configuration) SetLogged() bool {
+	credentials := c.InternalStatus.Credentials
+
+	if credentials == nil {
+		c.InternalStatus.Logged = false
+		return c.InternalStatus.Logged
+	}
+
+	c.InternalStatus.Logged = len(credentials.ID) != 4
+	return c.InternalStatus.Logged
 }
