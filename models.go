@@ -1,5 +1,7 @@
 package configuration
 
+import "github.com/hippokampe/configuration/credentials"
+
 type Configuration struct {
 	internalBrowsers map[string]Browser
 	filename         string
@@ -11,9 +13,9 @@ type Configuration struct {
 		Username string `json:"username,omitempty"`
 	} `json:"owner,omitempty"`
 	InternalStatus struct {
-		Logged            bool   `json:"logged,omitempty"`
-		ConfigurationFile string `json:"configuration_file,omitempty"`
-		CredentialsFile   string `json:"credentials_file,omitempty"`
+		Logged            bool                     `json:"logged,omitempty"`
+		ConfigurationFile string                   `json:"configuration_file,omitempty"`
+		Credentials       *credentials.Credentials `json:"credentials"`
 	} `json:"internal_status,omitempty"`
 }
 
