@@ -64,3 +64,21 @@ func (c *Configuration) SetLogged() bool {
 	c.InternalStatus.Logged = len(credentials.ID) == 4
 	return c.InternalStatus.Logged
 }
+
+func (c *Configuration) SetLogout() (bool, error) {
+	credentials := c.InternalStatus.Credentials
+	c.InternalStatus.Logged = false
+
+	if credentials == nil {
+		return c.InternalStatus.Logged, nil
+	}
+
+	if err := c.WriteConfig(); err != nil {
+		return false, err
+	}
+
+	credentials.Remove()
+
+	credentials = nil
+	return c.InternalStatus.Logged, nil
+}
