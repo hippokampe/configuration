@@ -22,6 +22,8 @@ func New(filename string) *Configuration {
 }
 
 func (c *Configuration) ReadGeneralConfig() error {
+	c.InternalStatus.Logged = false
+
 	file, err := ioutil.ReadFile(c.filename)
 	if err != nil {
 		return err
