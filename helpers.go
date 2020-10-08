@@ -3,6 +3,7 @@ package configuration
 import (
 	"errors"
 	"fmt"
+	"github.com/hippokampe/configuration/credentials"
 	"os/user"
 	"strconv"
 	"strings"
@@ -54,31 +55,38 @@ func (c *Configuration) SetBrowser(browserName string) {
 }
 
 func (c *Configuration) SetLogged() bool {
-	credentials := c.InternalStatus.Credentials
+	cred := c.InternalStatus.Credentials
 
-	if credentials == nil {
+	if cred == nil {
 		c.InternalStatus.Logged = false
 		return c.InternalStatus.Logged
 	}
 
-	c.InternalStatus.Logged = len(credentials.ID) == 4
+	c.InternalStatus.Logged = len(cred.ID) == 4
 	return c.InternalStatus.Logged
 }
 
 func (c *Configuration) SetLogout() (bool, error) {
-	credentials := c.InternalStatus.Credentials
 	c.InternalStatus.Logged = false
 
-	if credentials == nil {
+	if c.InternalStatus.Credentials == nil {
 		return c.InternalStatus.Logged, nil
 	}
 
-	credentials.Remove()
-	credentials = nil
+	c.InternalStatus.Credentials.Remove()
+	c.InternalStatus.Credentials = &credentials.Credentials{}
 
 	if err := c.WriteConfig(); err != nil {
 		return false, err
 	}
 
 	return c.InternalStatus.Logged, nil
+}
+
+func (c *Configuration) IsLogged() bool {
+	if c.InternalStatus.Credentials == nil {
+		return false
+	}
+
+	return c.InternalStatus.Logged
 }

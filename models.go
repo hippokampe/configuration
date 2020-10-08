@@ -13,7 +13,7 @@ type Configuration struct {
 		Username string `json:"username,omitempty"`
 	} `json:"owner,omitempty"`
 	InternalStatus struct {
-		Logged            bool                     `json:"logged,omitempty"`
+		Logged            bool                     `json:"logged"`
 		ConfigurationFile string                   `json:"configuration_file,omitempty"`
 		Credentials       *credentials.Credentials `json:"credentials"`
 	} `json:"internal_status,omitempty"`
