@@ -73,12 +73,12 @@ func (c *Configuration) SetLogout() (bool, error) {
 		return c.InternalStatus.Logged, nil
 	}
 
+	credentials.Remove()
+	credentials = nil
+
 	if err := c.WriteConfig(); err != nil {
 		return false, err
 	}
 
-	credentials.Remove()
-
-	credentials = nil
 	return c.InternalStatus.Logged, nil
 }
