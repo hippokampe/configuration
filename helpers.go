@@ -24,6 +24,14 @@ func (c *Configuration) SetPort(port string) error {
 	return nil
 }
 
+func (c *Configuration) GetPort() string {
+	if c.Port == "" {
+		return ":5678"
+	}
+
+	return c.Port
+}
+
 func (c *Configuration) SetUsername(username string, allowRoot bool) (string, error) {
 	owner, err := user.Lookup(username)
 	if err != nil {
