@@ -52,3 +52,15 @@ func (c *Configuration) SetBrowser(browserName string) {
 	browserName = strings.ToLower(browserName)
 	c.BrowserSelected = browserName
 }
+
+func (c *Configuration) SetLogged() bool {
+	credentials := c.InternalStatus.Credentials
+
+	if credentials == nil {
+		c.InternalStatus.Logged = false
+		return c.InternalStatus.Logged
+	}
+
+	c.InternalStatus.Logged = len(credentials.ID) != 4
+	return c.InternalStatus.Logged
+}
