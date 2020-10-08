@@ -14,7 +14,7 @@ func main() {
 
 	fmt.Println(config.SetUsername("root", true))
 	fmt.Println(config.SetUsername("davixcky", false))
-	fmt.Println(config.SetPort("123"))
+	fmt.Println(config.GetPort())
 	if err := config.WriteConfig(); err != nil {
 		log.Fatal(err)
 	}
