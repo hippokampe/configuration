@@ -3,6 +3,7 @@ package configuration
 type Configuration struct {
 	internalBrowsers map[string]Browser
 	filename         string
+	BrowserSelected  string    `json:"browser_selected"`
 	Browsers         []Browser `json:"browsers,omitempty"`
 	Port             string    `json:"port,omitempty"`
 	Owner            struct {
