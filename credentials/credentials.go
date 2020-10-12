@@ -30,7 +30,7 @@ func (c *Credentials) ReadFromFile(filename string) error {
 		return err
 	}
 
-	c.CredentialsFile = filename
+	c.credentialsFile = filename
 	return nil
 }
 
