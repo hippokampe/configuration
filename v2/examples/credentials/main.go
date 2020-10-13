@@ -14,10 +14,10 @@ func main() {
 
 	fmt.Println(cred.ReadFromFile(os.Getenv("HIPPOKAMPE_CREDENTIALS")))
 
-	cred.ID = "1532"
-	cred.Password = "password"
-	cred.Username = "David Orozco"
-	cred.Email = "1532@holbertonschool.com"
+	cred.id = "1532"
+	cred.password = "password"
+	cred.username = "David Orozco"
+	cred.email = "1532@holbertonschool.com"
 
 	fmt.Println(cred)
 	fmt.Println(cred.Save())

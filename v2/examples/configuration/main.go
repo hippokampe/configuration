@@ -15,30 +15,41 @@ func main() {
 	browser.AddBrowser(bw)
 
 	cred := credentials.New()
-	if err := cred.ReadFromFile(os.Getenv("HIPPOKAMPE_CREDENTIALS")); err != nil {
+	cred.SetFilename(os.Getenv("HIPPOKAMPE_CREDENTIALS"))
+	if err := cred.ReadFromFile(); err != nil {
 		log.Println(err)
 	}
-
-	cred.ID = "1532"
-	cred.Password = "password"
-	cred.Username = "David Orozco"
-	cred.Email = "1532@holbertonschool.com"
 
 	config := configuration.New()
-	if err := config.ReadFromFile(os.Getenv("HIPPOKAMPE_CONFIG")); err != nil {
+	config.SetFilename(os.Getenv("HIPPOKAMPE_CONFIG"))
+	if err := config.ReadFromFile(); err != nil {
 		log.Println(err)
 	}
+
+	fmt.Println(config.BindCredentials(cred))
+	fmt.Println(config.GetCredentials())
+
+	_ = cred.SetValue("id", "1532")
+	_ = cred.SetValue("password", "password")
+	_ = cred.SetValue("username", "David Orozco")
+	_ = cred.SetValue("email", "1532@holbertonschool.com")
+
+	fmt.Println(config.GetCredentials())
 
 	if err := cred.Save(); err != nil {
 		log.Println(err)
 	}
 
-	fmt.Println(config.BindCredentials(cred))
 	fmt.Println(config.SetLogged())
 	fmt.Println(config.SetPort("5600"))
 	fmt.Println(config.SetBrowser("firefox"))
 
-	if err := config.Save(); err != nil {
-		log.Fatal(err)
-	}
+	println()
+
+	cred, _ = config.GetCredentials()
+	fmt.Println(cred)
+
+	fmt.Println(cred.Logout())
+	fmt.Println(config.Logout())
+	fmt.Println(config.SetLogged())
 }

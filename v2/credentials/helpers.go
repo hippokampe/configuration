@@ -1,20 +1,34 @@
 package credentials
 
-func (c *Credentials) SetLogged() bool {
+import "errors"
+
+func (c *Credentials) SetLogged() (bool, error) {
+	if credentials == nil {
+		return false, errors.New("credentials not set")
+	}
+
 	if c.credentialsFile == "" {
 		c.isLogged = false
-		return c.isLogged
+		return c.isLogged, errors.New("credentials file not set")
 	}
 
 	c.isLogged = true
-	return c.isLogged
+	return c.isLogged, nil
 }
 
-func (c Credentials) IsLogged() bool {
-	return c.isLogged
+func (c Credentials) IsLogged() (bool, error) {
+	if credentials == nil {
+		return false, errors.New("credentials not set")
+	}
+
+	return c.isLogged, nil
 }
 
 func (c *Credentials) Logout() (bool, error) {
+	if credentials == nil {
+		return false, errors.New("credentials not set")
+	}
+
 	if !c.isLogged {
 		return false, nil
 	}
@@ -23,10 +37,10 @@ func (c *Credentials) Logout() (bool, error) {
 		return false, err
 	}
 
-	c.ID = ""
-	c.Password = ""
-	c.Username = ""
-	c.Email = ""
+	c.id = ""
+	c.password = ""
+	c.username = ""
+	c.email = ""
 	c.credentialsFile = ""
 	c.isLogged = false
 

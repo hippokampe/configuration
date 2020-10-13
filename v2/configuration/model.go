@@ -17,6 +17,6 @@ type InternalSettings struct {
 }
 
 type owner struct {
-	Username string
-	Home     string
+	Username string `json:"username"`
+	Home     string `json:"home"`
 }

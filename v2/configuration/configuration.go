@@ -3,6 +3,7 @@ package configuration
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"os"
 
@@ -20,17 +21,37 @@ func New() *InternalSettings {
 	return internalConfig
 }
 
-func (internal *InternalSettings) ReadFromFile(filename string) error {
+func (internal *InternalSettings) SetFilename(filename string) {
 	internal.filename = filename
+}
 
-	file, err := ioutil.ReadFile(filename)
+func (internal *InternalSettings) ReadFromFile() error {
+	file, err := ioutil.ReadFile(internal.filename)
 	if err != nil {
 		return err
 	}
 
-	if err := json.Unmarshal(file, &internal); err != nil {
+	tmpInternal := struct {
+		BrowserSelected *browser.Browser `json:"browser_selected"`
+		Logged          bool             `json:"logged"`
+		Port            string           `json:"port"`
+		Owner           owner            `json:"owner"`
+		CredentialsPath string           `json:"credentials_path,omitempty"`
+		GeneralPath     string           `json:"general_path,omitempty"`
+	}{}
+
+	fmt.Println(string(file))
+
+	if err := json.Unmarshal(file, &tmpInternal); err != nil {
 		return err
 	}
+
+	internal.browserSelected = tmpInternal.BrowserSelected
+	internal.logged = tmpInternal.Logged
+	internal.port = tmpInternal.Port
+	internal.owner = tmpInternal.Owner
+	internal.credentialsPath = tmpInternal.CredentialsPath
+	internal.generalPath = tmpInternal.GeneralPath
 
 	return nil
 }
@@ -43,10 +64,11 @@ func (internal *InternalSettings) Save() error {
 	internal.port = internal.GetPort()
 
 	tmpInternal := struct {
-		BrowserSelected *browser.Browser `json:"browser_selected,omitempty"`
-		Logged          bool             `json:"logged,omitempty"`
-		Port            string           `json:"port,omitempty"`
-		Owner           owner            `json:"owner,omitempty"`
+		BrowserSelected *browser.Browser `json:"browser_selected"`
+		Logged          bool             `json:"logged"`
+		Port            string           `json:"port"`
+		Owner           owner            `json:"owner"`
+
 		CredentialsPath string           `json:"credentials_path,omitempty"`
 		GeneralPath     string           `json:"general_path,omitempty"`
 	}{
