@@ -5,6 +5,8 @@ import (
 	"errors"
 	"io/ioutil"
 	"os"
+
+	"github.com/hippokampe/configuration/v2/browser"
 )
 
 var internalConfig *InternalSettings
@@ -38,9 +40,25 @@ func (internal *InternalSettings) Save() error {
 		return errors.New("you must set the credential file")
 	}
 
-	internal.Port = internal.GetPort()
+	internal.port = internal.GetPort()
 
-	file, err := json.MarshalIndent(internal, "", " ")
+	tmpInternal := struct {
+		BrowserSelected *browser.Browser `json:"browser_selected,omitempty"`
+		Logged          bool             `json:"logged,omitempty"`
+		Port            string           `json:"port,omitempty"`
+		Owner           owner            `json:"owner,omitempty"`
+		CredentialsPath string           `json:"credentials_path,omitempty"`
+		GeneralPath     string           `json:"general_path,omitempty"`
+	}{
+		BrowserSelected: internal.browserSelected,
+		Logged:          internal.logged,
+		Port:            internal.port,
+		Owner:           internal.owner,
+		CredentialsPath: internal.credentialsPath,
+		GeneralPath:     internal.generalPath,
+	}
+
+	file, err := json.MarshalIndent(tmpInternal, "", " ")
 	if err != nil {
 		return err
 	}

@@ -13,8 +13,16 @@ func (internal *InternalSettings) BindCredentials(cred *credentials.Credentials)
 	}
 
 	internal.cred = cred
-	internal.CredentialsPath = os.Getenv("HIPPOKAMPE_CREDENTIALS")
+	internal.credentialsPath = os.Getenv("HIPPOKAMPE_CREDENTIALS")
 	return nil
+}
+
+func (internal *InternalSettings) GetCredentials() (*credentials.Credentials, error) {
+	if internal.cred == nil {
+		return nil, errors.New("credentials must be bind first")
+	}
+
+	return internal.cred, nil
 }
 
 func (internal *InternalSettings) IsLogged() (bool, error) {
@@ -22,8 +30,8 @@ func (internal *InternalSettings) IsLogged() (bool, error) {
 		return false, errors.New("credentials must be bind first")
 	}
 
-	internal.Logged = internal.cred.IsLogged()
-	return internal.Logged, nil
+	internal.logged = internal.cred.IsLogged()
+	return internal.logged, nil
 }
 
 func (internal *InternalSettings) SetLogged() (bool, error) {
@@ -31,6 +39,6 @@ func (internal *InternalSettings) SetLogged() (bool, error) {
 		return false, errors.New("credentials must be bind first")
 	}
 
-	internal.Logged = internal.cred.SetLogged()
-	return internal.Logged, nil
+	internal.logged = internal.cred.SetLogged()
+	return internal.logged, nil
 }

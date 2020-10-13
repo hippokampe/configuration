@@ -3,11 +3,27 @@ package configuration
 import (
 	"errors"
 	"fmt"
+	"os/user"
 	"strconv"
 	"strings"
 
 	"github.com/hippokampe/configuration/v2/browser"
 )
+
+func (internal *InternalSettings) SetUsername(username string, allowRoot bool) (string, error) {
+	owner, err := user.Lookup(username)
+	if err != nil {
+		return "", err
+	}
+
+	if !allowRoot && owner.Username == "root" {
+		return "", errors.New("user cannot be root")
+	}
+
+	internal.owner.Username = owner.Username
+	internal.owner.Home = owner.HomeDir
+	return internal.owner.Home, nil
+}
 
 func (internal *InternalSettings) GetBrowser(browserName string) (*browser.Browser, error) {
 	browserName = strings.ToLower(browserName)
@@ -22,20 +38,20 @@ func (internal *InternalSettings) GetBrowser(browserName string) (*browser.Brows
 func (internal *InternalSettings) SetBrowser(browserName string) error {
 	bw, err := internal.GetBrowser(browserName)
 	if err != nil {
-		internal.BrowserSelected = nil
+		internal.browserSelected = nil
 		return err
 	}
 
-	internal.BrowserSelected = bw
+	internal.browserSelected = bw
 	return nil
 }
 
 func (internal InternalSettings) GetPathBrowser() (string, error) {
-	if internal.BrowserSelected == nil {
+	if internal.browserSelected == nil {
 		return "", errors.New("browser is not set")
 	}
 
-	return internal.BrowserSelected.Path, nil
+	return internal.browserSelected.Path, nil
 }
 
 func (internal *InternalSettings) SetPort(port string) error {
@@ -43,14 +59,14 @@ func (internal *InternalSettings) SetPort(port string) error {
 		return err
 	}
 
-	internal.Port = fmt.Sprintf(":%s", port)
+	internal.port = fmt.Sprintf(":%s", port)
 	return nil
 }
 
 func (internal *InternalSettings) GetPort() string {
-	if internal.Port == "" {
+	if internal.port == "" {
 		return ":5678"
 	}
 
-	return internal.Port
+	return internal.port
 }
