@@ -6,15 +6,17 @@ import (
 )
 
 type InternalSettings struct {
-	BrowserSelected *browser.Browser `json:"browser_selected,omitempty"`
-	Port            string           `json:"port"`
-	CredentialsPath string           `json:"credentials_path"`
-	GeneralPath     string           `json:"general_path"`
-	Logged          bool             `json:"logged"`
-	Owner 			struct {
-		Username string `json:"username"`
-		Home string `json:"home_dir"`
-	}
+	browserSelected *browser.Browser
+	port            string
+	credentialsPath string
+	generalPath     string
+	logged          bool
+	owner           owner
 	cred            *credentials.Credentials
 	filename        string
+}
+
+type owner struct {
+	Username string
+	Home     string
 }
