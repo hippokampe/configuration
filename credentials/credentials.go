@@ -21,6 +21,8 @@ func New() *Credentials {
 }
 
 func (c *Credentials) ReadFromFile(filename string) error {
+	c.credentialsFile = filename
+
 	file, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return err
@@ -30,7 +32,6 @@ func (c *Credentials) ReadFromFile(filename string) error {
 		return err
 	}
 
-	c.credentialsFile = filename
 	return nil
 }
 
