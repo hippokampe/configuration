@@ -2,8 +2,9 @@ package general
 
 import (
 	"encoding/json"
-	"github.com/hippokampe/configuration/browser"
 	"io/ioutil"
+
+	"github.com/hippokampe/configuration/v2/browser"
 )
 
 var (

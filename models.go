@@ -1,7 +1,7 @@
 package general
 
 import (
-	"github.com/hippokampe/configuration/browser"
+	"github.com/hippokampe/configuration/v2/browser"
 )
 
 type Configuration struct {

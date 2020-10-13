@@ -2,8 +2,9 @@ package configuration
 
 import (
 	"errors"
-	"github.com/hippokampe/configuration/credentials"
 	"os"
+
+	"github.com/hippokampe/configuration/v2/credentials"
 )
 
 func (internal *InternalSettings) BindCredentials(cred *credentials.Credentials) error {

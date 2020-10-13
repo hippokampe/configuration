@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/hippokampe/configuration"
-	"github.com/hippokampe/configuration/browser"
 	"log"
+
+	general "github.com/hippokampe/configuration/v2"
+	"github.com/hippokampe/configuration/v2/browser"
 )
 
 func main() {

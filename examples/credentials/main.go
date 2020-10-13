@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/hippokampe/configuration/credentials"
 	"os"
+
+	"github.com/hippokampe/configuration/v2/credentials"
 )
 
 func main() {

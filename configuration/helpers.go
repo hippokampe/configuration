@@ -3,9 +3,10 @@ package configuration
 import (
 	"errors"
 	"fmt"
-	"github.com/hippokampe/configuration/browser"
 	"strconv"
 	"strings"
+
+	"github.com/hippokampe/configuration/v2/browser"
 )
 
 func (internal *InternalSettings) GetBrowser(browserName string) (*browser.Browser, error) {
