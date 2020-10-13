@@ -17,6 +17,14 @@ func (internal *InternalSettings) BindCredentials(cred *credentials.Credentials)
 	return nil
 }
 
+func (internal *InternalSettings) GetCredentials() (*credentials.Credentials, error) {
+	if internal.cred == nil {
+		return nil, errors.New("credentials must be bind first")
+	}
+
+	return internal.cred, nil
+}
+
 func (internal *InternalSettings) IsLogged() (bool, error) {
 	if internal.cred == nil {
 		return false, errors.New("credentials must be bind first")
