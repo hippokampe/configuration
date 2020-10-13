@@ -3,32 +3,24 @@ package main
 import (
 	"fmt"
 	"github.com/hippokampe/configuration"
-	"github.com/hippokampe/configuration/credentials"
+	"github.com/hippokampe/configuration/browser"
 	"log"
 )
 
 func main() {
-	config := configuration.New("general.json")
+	config := general.New("/etc/hippokampe/general.json")
 	if err := config.ReadGeneralConfig(); err != nil {
 		log.Fatal(err)
 	}
 
-	config.InternalStatus.Credentials = &credentials.Credentials{
-		ID: "1234",
-		Email: "email",
-		CredentialsFile: "credentials.json",
+	for _, bw := range config.Browsers {
+		browser.AddBrowser(bw)
+		fmt.Println(bw)
 	}
 
-	fmt.Println(config.InternalStatus.Credentials.Save())
+	println()
+	fmt.Println(browser.GetBrowser("firefox"))
+	fmt.Println(browser.GetBrowser("chromium"))
+	fmt.Println(browser.GetBrowser("chrome"))
 
-	fmt.Println(config.SetLogged())
-	if err := config.WriteConfig(); err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(config.IsLogged())
-
-	if err := config.WriteConfig(); err != nil {
-		log.Fatal(err)
-	}
 }
