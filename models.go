@@ -1,26 +1,12 @@
-package configuration
+package general
 
-import "github.com/hippokampe/configuration/credentials"
+import (
+	"github.com/hippokampe/configuration/browser"
+)
 
 type Configuration struct {
-	internalBrowsers map[string]Browser
-	filename         string
-	BrowserSelected  string    `json:"browser_selected"`
-	Browsers         []Browser `json:"browsers,omitempty"`
-	Port             string    `json:"port,omitempty"`
-	Owner            struct {
-		Home     string `json:"home,omitempty"`
-		Username string `json:"username,omitempty"`
-	} `json:"owner,omitempty"`
-	InternalStatus struct {
-		Logged            bool                     `json:"logged"`
-		ConfigurationFile string                   `json:"configuration_file,omitempty"`
-		Credentials       *credentials.Credentials `json:"credentials"`
-	} `json:"internal_status,omitempty"`
-}
-
-type Browser struct {
-	Name    string `json:"name,omitempty"`
-	Version string `json:"version,omitempty"`
-	Path    string `json:"path,omitempty"`
+	filename               string
+	CredentialsFilename    string
+	CustomSettingsFilename string
+	Browsers               []*browser.Browser `json:"browsers,omitempty"`
 }
