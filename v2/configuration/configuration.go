@@ -68,6 +68,7 @@ func (internal *InternalSettings) Save() error {
 		Logged          bool             `json:"logged"`
 		Port            string           `json:"port"`
 		Owner           owner            `json:"owner"`
+
 		CredentialsPath string           `json:"credentials_path,omitempty"`
 		GeneralPath     string           `json:"general_path,omitempty"`
 	}{
