@@ -22,5 +22,4 @@ func main() {
 	fmt.Println(browser.GetBrowser("firefox"))
 	fmt.Println(browser.GetBrowser("chromium"))
 	fmt.Println(browser.GetBrowser("chrome"))
-
 }
