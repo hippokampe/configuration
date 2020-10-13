@@ -1,32 +1,36 @@
 package credentials
 
-import (
-	"encoding/json"
-	"errors"
-	"io/ioutil"
-	"os"
-)
-
-func (c *Credentials) Set(cred Credentials) {
-	c.Username = cred.Username
-	c.Password = cred.Username
-	c.ID = cred.ID
-	c.Email = cred.Email
-}
-
-func (c *Credentials) Save() error {
-	if c.CredentialsFile == "" {
-		return errors.New("you must set the credential file")
+func (c *Credentials) SetLogged() bool {
+	if c.credentialsFile == "" {
+		c.isLogged = false
+		return c.isLogged
 	}
 
-	file, err := json.MarshalIndent(c, "", " ")
-	if err != nil {
-		return err
-	}
-
-	return ioutil.WriteFile(c.CredentialsFile, file, 0644)
+	c.isLogged = true
+	return c.isLogged
 }
 
-func (c *Credentials) Remove() {
-	_ = os.Remove(c.CredentialsFile)
+func (c Credentials) IsLogged() bool {
+	return c.isLogged
+}
+
+func (c *Credentials) Logout() (bool, error) {
+	if !c.isLogged {
+		return false, nil
+	}
+
+	if err := c.Remove(); err != nil {
+		return false, err
+	}
+
+	c.ID = ""
+	c.Password = ""
+	c.Username = ""
+	c.Email = ""
+	c.credentialsFile = ""
+	c.isLogged = false
+
+	credentials = nil
+
+	return true, nil
 }

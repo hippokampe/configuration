@@ -1,7 +1,8 @@
-package configuration
+package general
 
 import (
 	"encoding/json"
+	"github.com/hippokampe/configuration/browser"
 	"io/ioutil"
 )
 
@@ -15,15 +16,12 @@ func New(filename string) *Configuration {
 	}
 
 	configuration = new(Configuration)
-	configuration.internalBrowsers = make(map[string]Browser)
 	configuration.filename = filename
 
 	return configuration
 }
 
 func (c *Configuration) ReadGeneralConfig() error {
-	c.InternalStatus.Logged = false
-
 	file, err := ioutil.ReadFile(c.filename)
 	if err != nil {
 		return err
@@ -33,8 +31,8 @@ func (c *Configuration) ReadGeneralConfig() error {
 		return err
 	}
 
-	for _, browser := range c.Browsers {
-		c.internalBrowsers[browser.Name] = browser
+	for _, bw := range c.Browsers {
+		browser.AddBrowser(bw)
 	}
 
 	return nil
