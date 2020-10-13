@@ -1,8 +1,8 @@
 package configuration
 
 import (
-	"github.com/hippokampe/configuration/v2/browser"
-	"github.com/hippokampe/configuration/v2/credentials"
+	"github.com/hippokampe/configuration/browser"
+	"github.com/hippokampe/configuration/credentials"
 )
 
 type InternalSettings struct {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	general "github.com/hippokampe/configuration/v2"
-	"github.com/hippokampe/configuration/v2/browser"
+	general "github.com/hippokampe/configuration"
+	"github.com/hippokampe/configuration/browser"
 )
 
 func main() {

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/hippokampe/configuration/v2/browser"
+	"github.com/hippokampe/configuration/browser"
 )
 
 var (

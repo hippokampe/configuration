@@ -1,3 +1,3 @@
-module github.com/hippokampe/configuration/v2
+module github.com/hippokampe/configuration
 
 go 1.14

@@ -5,9 +5,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/hippokampe/configuration/v2/browser"
-	"github.com/hippokampe/configuration/v2/configuration"
-	"github.com/hippokampe/configuration/v2/credentials"
+	"github.com/hippokampe/configuration/browser"
+	"github.com/hippokampe/configuration/configuration"
+	"github.com/hippokampe/configuration/credentials"
 )
 
 func main() {

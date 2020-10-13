@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hippokampe/configuration/v2/credentials"
+	"github.com/hippokampe/configuration/credentials"
 )
 
 func main() {

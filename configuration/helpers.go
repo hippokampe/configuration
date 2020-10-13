@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hippokampe/configuration/v2/browser"
+	"github.com/hippokampe/configuration/browser"
 )
 
 func (internal *InternalSettings) GetBrowser(browserName string) (*browser.Browser, error) {

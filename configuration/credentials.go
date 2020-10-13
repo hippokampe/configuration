@@ -4,7 +4,7 @@ import (
 	"errors"
 	"os"
 
-	"github.com/hippokampe/configuration/v2/credentials"
+	"github.com/hippokampe/configuration/credentials"
 )
 
 func (internal *InternalSettings) BindCredentials(cred *credentials.Credentials) error {
