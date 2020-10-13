@@ -3,11 +3,27 @@ package configuration
 import (
 	"errors"
 	"fmt"
+	"os/user"
 	"strconv"
 	"strings"
 
 	"github.com/hippokampe/configuration/v2/browser"
 )
+
+func (internal *InternalSettings) SetUsername(username string, allowRoot bool) (string, error) {
+	owner, err := user.Lookup(username)
+	if err != nil {
+		return "", err
+	}
+
+	if !allowRoot && owner.Username == "root" {
+		return "", errors.New("user cannot be root")
+	}
+
+	internal.Owner.Username = owner.Username
+	internal.Owner.Home = owner.HomeDir
+	return internal.Owner.Home, nil
+}
 
 func (internal *InternalSettings) GetBrowser(browserName string) (*browser.Browser, error) {
 	browserName = strings.ToLower(browserName)

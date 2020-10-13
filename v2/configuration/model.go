@@ -11,6 +11,10 @@ type InternalSettings struct {
 	CredentialsPath string           `json:"credentials_path"`
 	GeneralPath     string           `json:"general_path"`
 	Logged          bool             `json:"logged"`
+	Owner 			struct {
+		Username string `json:"username"`
+		Home string `json:"home_dir"`
+	}
 	cred            *credentials.Credentials
 	filename        string
 }
