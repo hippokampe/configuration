@@ -19,6 +19,8 @@ func New() *InternalSettings {
 }
 
 func (internal *InternalSettings) ReadFromFile(filename string) error {
+	internal.filename = filename
+
 	file, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return err
@@ -28,7 +30,6 @@ func (internal *InternalSettings) ReadFromFile(filename string) error {
 		return err
 	}
 
-	internal.filename = filename
 	return nil
 }
 
@@ -37,15 +38,11 @@ func (internal *InternalSettings) Save() error {
 		return errors.New("you must set the credential file")
 	}
 
+	internal.Port = internal.GetPort()
+
 	file, err := json.MarshalIndent(internal, "", " ")
 	if err != nil {
 		return err
-	}
-
-	if internal.cred != nil {
-		if err := internal.cred.Save(); err != nil {
-			return err
-		}
 	}
 
 	return ioutil.WriteFile(internal.filename, file, 0644)

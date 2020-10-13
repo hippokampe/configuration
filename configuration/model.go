@@ -6,11 +6,11 @@ import (
 )
 
 type InternalSettings struct {
-	BrowserSelected *browser.Browser `json:"browser_selected"`
+	BrowserSelected *browser.Browser `json:"browser_selected,omitempty"`
 	Port            string           `json:"port"`
 	CredentialsPath string           `json:"credentials_path"`
 	GeneralPath     string           `json:"general_path"`
-	Logged          bool
+	Logged          bool             `json:"logged"`
 	cred            *credentials.Credentials
 	filename        string
 }
