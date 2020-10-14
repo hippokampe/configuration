@@ -29,6 +29,8 @@ func main() {
 	fmt.Println(config.BindCredentials(cred))
 	fmt.Println(config.GetCredentials())
 
+	fmt.Println(config.IsLogged())
+
 	_ = cred.SetValue("id", "1532")
 	_ = cred.SetValue("password", "password")
 	_ = cred.SetValue("username", "David Orozco")
@@ -49,7 +51,5 @@ func main() {
 	cred, _ = config.GetCredentials()
 	fmt.Println(cred)
 
-	fmt.Println(cred.Logout())
 	fmt.Println(config.Logout())
-	fmt.Println(config.SetLogged())
 }

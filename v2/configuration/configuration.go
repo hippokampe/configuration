@@ -40,8 +40,6 @@ func (internal *InternalSettings) ReadFromFile() error {
 		GeneralPath     string           `json:"general_path,omitempty"`
 	}{}
 
-	fmt.Println(string(file))
-
 	if err := json.Unmarshal(file, &tmpInternal); err != nil {
 		return err
 	}
@@ -52,6 +50,10 @@ func (internal *InternalSettings) ReadFromFile() error {
 	internal.owner = tmpInternal.Owner
 	internal.credentialsPath = tmpInternal.CredentialsPath
 	internal.generalPath = tmpInternal.GeneralPath
+
+	if internal.logged && internal.cred != nil {
+		_, _ = internal.cred.SetLogged()
+	}
 
 	return nil
 }
@@ -68,7 +70,6 @@ func (internal *InternalSettings) Save() error {
 		Logged          bool             `json:"logged"`
 		Port            string           `json:"port"`
 		Owner           owner            `json:"owner"`
-
 		CredentialsPath string           `json:"credentials_path,omitempty"`
 		GeneralPath     string           `json:"general_path,omitempty"`
 	}{
