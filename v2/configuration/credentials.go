@@ -2,6 +2,7 @@ package configuration
 
 import (
 	"errors"
+
 	"github.com/hippokampe/configuration/v2/credentials"
 )
 
@@ -24,8 +25,6 @@ func (internal *InternalSettings) GetCredentials() (*credentials.Credentials, er
 }
 
 func (internal *InternalSettings) IsLogged() (bool, error) {
-	var err error
-
 	if internal.cred == nil {
 		return false, errors.New("credentials must be bind first")
 	}
