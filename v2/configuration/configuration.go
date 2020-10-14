@@ -3,7 +3,6 @@ package configuration
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"os"
 
@@ -39,8 +38,6 @@ func (internal *InternalSettings) ReadFromFile() error {
 		CredentialsPath string           `json:"credentials_path,omitempty"`
 		GeneralPath     string           `json:"general_path,omitempty"`
 	}{}
-
-	fmt.Println(string(file))
 
 	if err := json.Unmarshal(file, &tmpInternal); err != nil {
 		return err
