@@ -24,15 +24,8 @@ func (internal *InternalSettings) GetCredentials() (*credentials.Credentials, er
 }
 
 func (internal *InternalSettings) IsLogged() (bool, error) {
-	var err error
-
 	if internal.cred == nil {
 		return false, errors.New("credentials must be bind first")
-	}
-
-	internal.logged, err = internal.cred.IsLogged()
-	if err != nil {
-		return false, err
 	}
 
 	return internal.logged, nil
@@ -66,6 +59,7 @@ func (internal *InternalSettings) Logout() (bool, error) {
 		return false, errors.New("credentials must be bind first")
 	}
 
+	internal.logged = false
 	if status, _ := internal.cred.Logout(); !status {
 		return false, nil
 	}
