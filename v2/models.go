@@ -6,7 +6,7 @@ import (
 
 type Configuration struct {
 	filename               string
-	CredentialsFilename    string
-	CustomSettingsFilename string
+	CredentialsFilename    string             `json:"credentials_filename,omitempty"`
+	CustomSettingsFilename string             `json:"custom_settings_filename,omitempty"`
 	Browsers               []*browser.Browser `json:"browsers,omitempty"`
 }

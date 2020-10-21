@@ -19,6 +19,12 @@ func main() {
 		fmt.Println(bw)
 	}
 
+	config.CredentialsFilename = "home/davixcky/.config/hippokampe/credentials.json"
+
+	if err := config.WriteConfig(); err != nil {
+		log.Fatal(err)
+	}
+
 	println()
 	fmt.Println(browser.GetBrowser("firefox"))
 	fmt.Println(browser.GetBrowser("chromium"))
