@@ -70,3 +70,11 @@ func (internal *InternalSettings) GetPort() string {
 
 	return internal.port
 }
+
+func (internal *InternalSettings) GetOwnerUsername() string {
+	return internal.owner.Username
+}
+
+func (internal InternalSettings) Filename() string {
+	return internal.filename
+}
